@@ -6,9 +6,16 @@ import pl.test.OOP_2.*;
 import javax.crypto.spec.PSource;
 import java.util.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Main {
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
 
         System.out.println(Person.PI);
 
@@ -90,9 +97,9 @@ public class Main {
         int listSize = animalsList.size();
         System.out.println("animalsList contains " + listSize + " elements.");
 
-        if (animalsList.isEmpty()){
+        if (animalsList.isEmpty()) {
             System.out.println("This list is empty");
-        }else {
+        } else {
             System.out.println("This list is not empty");
         }
 
@@ -107,15 +114,23 @@ public class Main {
 
         System.out.println("\nC-------\n");
 
-        Map<String, String> animalsNames = new HashMap<>();
+        Map<String, Animal> animalsNames = new HashMap<>();
 
-        animalsNames.put(cat.getName(), "cat");
-        animalsNames.put(dog.getName(), "dog");
-        animalsNames.put(dog2.getName(), "dog2");
+        animalsNames.put(cat.getName(), cat);
+        animalsNames.put(dog.getName(), dog);
+        animalsNames.put(dog2.getName(), dog2);
 
-        for (String name : animalsNames.keySet()){
+        for (String key : animalsNames.keySet()) {
+            Animal name = animalsNames.get(key);
             System.out.println(name + " is " + animalsNames.get(name));
         }
+
+        System.out.println("-------ZADANIE DOMOWE 07.10-------");
+
+        String pathToFile = System.getProperty("user.dir") + "/animals_names_base.txt";
+        writeToFileAnimalNames(pathToFile, "Łajka");
+        writeToFileAnimalNames(pathToFile, "Gustaw");
+        readFromFileAnimalNames(pathToFile);
 
     }
 
@@ -123,5 +138,28 @@ public class Main {
         animal.useVoice();
     }
 
+    public static void writeToFileAnimalNames(String filePath, String textToSave) throws IOException {
+        FileWriter newFileWriter = new FileWriter(filePath, true);
+        newFileWriter.write(textToSave + "\n");
+        newFileWriter.close();
+    }
 
+    public static void readFromFileAnimalNames(String filePath) {
+        File file = new File(filePath);
+        Scanner scanner = null;
+
+        try {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+    }
 }
