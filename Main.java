@@ -128,8 +128,10 @@ public class Main {
         System.out.println("-------ZADANIE DOMOWE 07.10-------");
 
         String pathToFile = System.getProperty("user.dir") + "/animals_names_base.txt";
-        writeToFileAnimalNames(pathToFile, "Łajka");
-        writeToFileAnimalNames(pathToFile, "Gustaw");
+//        writeToFileAnimalNames(pathToFile, "Łajka");
+//        writeToFileAnimalNames(pathToFile, "Gustaw");
+
+        writeToFileAnimalNames(pathToFile, animalSet);
         readFromFileAnimalNames(pathToFile);
 
     }
@@ -138,11 +140,19 @@ public class Main {
         animal.useVoice();
     }
 
-    public static void writeToFileAnimalNames(String filePath, String textToSave) throws IOException {
+//    public static void writeToFileAnimalNames(String filePath, String textToSave) throws IOException {
+//        FileWriter newFileWriter = new FileWriter(filePath, true);
+//        newFileWriter.write(textToSave + "\n");
+//        newFileWriter.close();
+//    }
+
+    public static void writeToFileAnimalNames(String filePath, Set<String> set) throws IOException {
         FileWriter newFileWriter = new FileWriter(filePath, true);
-        newFileWriter.write(textToSave + "\n");
+        for (String name : set){
+            newFileWriter.write(String.valueOf(set));
+        }
         newFileWriter.close();
-    }
+  }
 
     public static void readFromFileAnimalNames(String filePath) {
         File file = new File(filePath);
